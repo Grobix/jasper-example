@@ -6,6 +6,9 @@
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["/media/development/dev/JasperExample/"]]></defaultValueExpression>
 	</parameter>
+	<parameter name="toc" class="java.lang.StringBuilder" isForPrompting="false">
+		<defaultValueExpression><![CDATA[new StringBuilder()]]></defaultValueExpression>
+	</parameter>
 	<field name="firstName" class="java.lang.String"/>
 	<field name="lastName" class="java.lang.String"/>
 	<field name="addresses" class="java.util.List"/>
@@ -14,7 +17,15 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="79" splitType="Stretch"/>
+		<band height="79" splitType="Stretch">
+			<textField isStretchWithOverflow="true">
+				<reportElement x="0" y="59" width="471" height="20" uuid="124b6497-6cc6-4f75-b2ed-e316a7775ecb"/>
+				<textElement markup="html">
+					<font fontName="Monospaced" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{toc}.toString()]]></textFieldExpression>
+			</textField>
+		</band>
 	</title>
 	<pageHeader>
 		<band height="35" splitType="Stretch"/>
@@ -32,7 +43,7 @@
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="38" splitType="Stretch">
+		<band height="637" splitType="Stretch">
 			<textField>
 				<reportElement x="0" y="0" width="277" height="20" uuid="69dfdd53-f8a0-4ab9-a208-5d5e08b946e9"/>
 				<textFieldExpression><![CDATA[$F{firstName}]]></textFieldExpression>
@@ -43,17 +54,33 @@
 			</textField>
 			<subreport>
 				<reportElement x="0" y="20" width="555" height="18" uuid="531f8942-6954-4b5a-b3c6-b05012ec0d7a"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="toc">
+					<subreportParameterExpression><![CDATA[$P{toc}]]></subreportParameterExpression>
+				</subreportParameter>
 				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{addresses})]]></dataSourceExpression>
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "Sub_Adresse.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
-		<band height="20">
+		<band height="20" splitType="Stretch">
 			<printWhenExpression><![CDATA[!$F{phones}.isEmpty()]]></printWhenExpression>
 			<subreport>
 				<reportElement x="0" y="0" width="555" height="20" backcolor="#CCFF33" uuid="a1d38c0f-6604-44c2-ba71-51e60e6d852f"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="toc">
+					<subreportParameterExpression><![CDATA[$P{toc}]]></subreportParameterExpression>
+				</subreportParameter>
 				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{phones})]]></dataSourceExpression>
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "Sub_Phone.jasper"]]></subreportExpression>
 			</subreport>
+			<textField>
+				<reportElement x="455" y="0" width="100" height="20" uuid="ea30e325-35c5-48ca-93bb-d3908379c628"/>
+				<textFieldExpression><![CDATA[$P{toc}.append("Foo"+ $V{PAGE_NUMBER})]]></textFieldExpression>
+			</textField>
 		</band>
 	</detail>
 	<columnFooter>

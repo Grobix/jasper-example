@@ -19,12 +19,12 @@
 	<detail>
 		<band height="21" splitType="Stretch">
 			<textField>
-				<reportElement style="style1" x="0" y="0" width="277" height="20" uuid="802ffed0-da5e-45f3-ade7-7354766f6e47"/>
+				<reportElement x="0" y="0" width="277" height="20" uuid="802ffed0-da5e-45f3-ade7-7354766f6e47"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{type}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement style="style1" x="277" y="0" width="277" height="20" uuid="7c073c61-1972-4eaa-a3a8-e5a6954e5065"/>
+				<reportElement x="277" y="0" width="277" height="20" uuid="7c073c61-1972-4eaa-a3a8-e5a6954e5065"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{address}]]></textFieldExpression>
 			</textField>
